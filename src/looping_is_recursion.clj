@@ -60,10 +60,28 @@
               (recur (rest s) odd))))))
 
 
-
 (defn fast-fibo [n]
-  ":(")
+  (loop [ix 2
+         f_n 1
+         f_n1 0]
+    (cond
+     (= 0 n)
+      0
+     (= 1 n)
+      1
+     (= ix n)
+      (+ f_n f_n1);this produces the final Fn = fn-1 + fn-2
+     :else
+      (recur (inc ix) (+ f_n f_n1) f_n)))) ;calculate new fn and the prev fn will be the new fn-1
+
 
 (defn cut-at-repetition [a-seq]
-  [":("])
+  (loop [s a-seq
+         res []]
+    (if (= 0 (count s))
+      res
+      (if (some #(= (first s) %) res) ;kind of contains? for a list
+        res
+        (recur (rest s) (conj res (first s)))))))
+
 
